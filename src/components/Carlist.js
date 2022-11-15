@@ -4,6 +4,7 @@ import'ag-grid-community/dist/styles/ag-grid.css';
 import'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from'@mui/material/Button';
 import Addcar from './Addcar';
+import Editcar from './Editcar';
 
 function Carlist(){
     const gridRef = useRef();
@@ -39,6 +40,18 @@ function Carlist(){
         .catch(err => console.log(err))
     };
 
+    const updateCar = (car, link) => {
+        fetch(link,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(car)
+        })
+        .then(res => fetchData())
+        .catch(err => console.log(err))
+    };
+
     const columns = [
         {field: "brand"},
         {field: "model"},
@@ -48,13 +61,19 @@ function Carlist(){
         {field: "price"},
         {
             headerName: "",
+            cellRenderer: function(rowData){
+                return <Editcar updateCar={updateCar} car={rowData.data} />
+            },
+
+        },
+        {
+            headerName: "",
             field: "_links.self.href",
             cellRenderer: function(field){
                 return <Button onClick={() => deleteCar(field.value)} >delete</Button>
             },
 
         }
-        
     ]
 
     return (
