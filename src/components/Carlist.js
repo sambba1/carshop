@@ -77,13 +77,11 @@ function Carlist(){
     ]
 
     return (
-        <div>
-            <div className="ag-theme-material"
-                style={{height: '900px', width: '100%', margin: 'center'}} >
-                    <Addcar saveCar={saveCar}/>
-                <AgGridReact rowData={cars} columnDefs={columns}></AgGridReact>
-            </div>
-        </div>
+        <div className="ag-theme-material"
+            style={{height: '900px', width: '100%', margin: 'center'}} >
+                <Addcar saveCar={saveCar}/>
+            <AgGridReact rowData={cars} columnDefs={columns}></AgGridReact>
+        </div>    
     );
 };
 export default Carlist;
